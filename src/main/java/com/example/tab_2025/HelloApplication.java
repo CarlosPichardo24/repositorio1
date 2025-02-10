@@ -1,23 +1,53 @@
 
 package com.example.tab_2025;
 
+import com.example.tab_2025.vistas.Calculadora;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+
+    private VBox vBox;
+    private MenuBar menuBarPrincipal;
+    private Menu menuCompetencia1, menuCompetencia2;
+    private MenuItem mitCalculadora;
+    private Scene scena;
+
+    void CrearUI(){
+        mitCalculadora = new MenuItem("Calculadora");
+        mitCalculadora.setOnAction(event -> new Calculadora());
+        menuCompetencia1 = new Menu("Competencia Uno");
+        menuCompetencia1.getItems().addAll(mitCalculadora);
+        menuBarPrincipal = new MenuBar();
+        menuCompetencia2 = new Menu("Competencia Dos");
+        menuBarPrincipal.getMenus().addAll(menuCompetencia1, menuCompetencia2);
+        vBox = new VBox(menuBarPrincipal);
+
+
+
     }
 
+    @Override
+    public void start(Stage stage) throws IOException {
+        CrearUI();
+        stage.setTitle("Titulo de la ventana a ver que tal juasjuasjuas");
+        stage.setScene(new Scene(vBox));
+        stage.show();
+        stage.setMaximized(true);
+    }
+
+    //el padding aplica un espacidado del padre al nodo hijo
+    //el spacing aplica un espcaiado del nodo hijo al padre
     public static void main(String[] args) {
         launch();
     }
